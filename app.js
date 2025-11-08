@@ -1,18 +1,19 @@
 import express from 'express';
+import 'dotenv/config.js';
+import studentRoutes from './routers/StudentRoutes.js';
+
 const app = express();
 
 app.use(express.json());
 
-const PORT = 3000;
+const port = 3000;
 
 try {
-    app.listen(PORT, () => {
-      console.log(`Listening to Port 3000...`);
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(`Listening to Port ${process.env.PORT || 3000}...`);
     });
 }catch(e) {
   console.log(e);
 }
 
-app.get('/cielo', async (request, response) => {
-  response.status(200).json({ message: 'Hello I am Cielo!' });
-});
+app.use('/students', studentRoutes);
